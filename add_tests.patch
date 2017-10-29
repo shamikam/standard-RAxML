@@ -1,0 +1,126 @@
+From e5623eba204beae5132d96258968ba1b7dff936b Mon Sep 17 00:00:00 2001
+From: shamikam <shamika.mohanan@gmail.com>
+Date: Sun, 29 Oct 2017 15:55:56 +0530
+Subject: [PATCH 1/2] Added test cases
+
+---
+ tests/README.test             | 13 +++++++++++++
+ tests/run-test                | 16 ++++++++++++++++
+ tests/test_data/testData.txt  |  5 +++++
+ tests/test_data/testData2.txt | 12 ++++++++++++
+ tests/test_data/testTree.txt  |  1 +
+ tests/test_data/testTree2.txt |  3 +++
+ 6 files changed, 50 insertions(+)
+ create mode 100644 tests/README.test
+ create mode 100644 tests/run-test
+ create mode 100644 tests/test_data/testData.txt
+ create mode 100644 tests/test_data/testData2.txt
+ create mode 100644 tests/test_data/testTree.txt
+ create mode 100644 tests/test_data/testTree2.txt
+
+diff --git a/tests/README.test b/tests/README.test
+new file mode 100644
+index 0000000..a451116
+--- /dev/null
++++ b/tests/README.test
+@@ -0,0 +1,13 @@
++Notes on how this package can be tested.
++────────────────────────────────────────
++
++This package can be tested by executing
++
++    sh run-unit-test
++
++in order to confirm its integrity.
++
++Test data obtained from 
++
++1. RAxML manual- https://sco.h-its.org/exelixis/resource/download/NewManual.pdf
++2. PHYLIP documentation- http://evolution.genetics.washington.edu/phylip.html
+diff --git a/tests/run-test b/tests/run-test
+new file mode 100644
+index 0000000..8ffb0e7
+--- /dev/null
++++ b/tests/run-test
+@@ -0,0 +1,16 @@
++#!/bin/sh -e
++
++pkg=raxml
++
++if [ "$TMPDIR" = "" ] ; then
++  TMPDIR=$(mktemp -d /tmp/${pkg}-test.XXXX)
++  trap "rm -rf $TMPDIR" 0 INT QUIT ABRT PIPE TERM
++fi
++
++cd $TMPDIR
++
++cp -a /usr/share/doc/${pkg}/test_data/* .
++gunzip -r *
++
++raxmlHPC -m GTRGAMMA -n TEST -s testData.txt ­-f A -t testTree.txt 
++raxmlHPC -m GTRCAT -z testTree2.txt -s testData2.txt -f r -n TEST2
+diff --git a/tests/test_data/testData.txt b/tests/test_data/testData.txt
+new file mode 100644
+index 0000000..66b750b
+--- /dev/null
++++ b/tests/test_data/testData.txt
+@@ -0,0 +1,5 @@
++4 4
++t1 ACGT
++t2 AATT
++t3 ATAT
++t4 CCGT
+diff --git a/tests/test_data/testData2.txt b/tests/test_data/testData2.txt
+new file mode 100644
+index 0000000..a6ec0cb
+--- /dev/null
++++ b/tests/test_data/testData2.txt
+@@ -0,0 +1,12 @@
++10   40
++A         CACACACAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAA
++B         CACACAACAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAA
++C         CACAACAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAA
++D         CAACAAAACAAAAAAAAACAAAAAAAAAAAAAAAAAAAAA
++E         CAACAAAAACAAAAAAAACAAAAAAAAAAAAAAAAAAAAA
++F         ACAAAAAAAACACACAAAACAAAAAAAAAAAAAAAAAAAA
++G         ACAAAAAAAACACAACAAACAAAAAAAAAAAAAAAAAAAA
++H         ACAAAAAAAACAACAAAAACAAAAAAAAAAAAAAAAAAAA
++I         ACAAAAAAAAACAAAACAACAAAAAAAAAAAAAAAAAAAA
++J         ACAAAAAAAAACAAAAACACAAAAAAAAAAAAAAAAAAAA
++
+diff --git a/tests/test_data/testTree.txt b/tests/test_data/testTree.txt
+new file mode 100644
+index 0000000..1e78482
+--- /dev/null
++++ b/tests/test_data/testTree.txt
+@@ -0,0 +1 @@
++((t1,t2),(t3,t4));
+diff --git a/tests/test_data/testTree2.txt b/tests/test_data/testTree2.txt
+new file mode 100644
+index 0000000..579566a
+--- /dev/null
++++ b/tests/test_data/testTree2.txt
+@@ -0,0 +1,3 @@
++ (A,(B,C),D); 
++ (B,(A,D),C);
++ (B:6.0,(A:5.0,C:3.0):5.0,D:11.0); 
+-- 
+1.9.1
+
+
+From c77f7f0fbfce9a94c289e701a12818016f6cf8b8 Mon Sep 17 00:00:00 2001
+From: shamikam <shamika.mohanan@gmail.com>
+Date: Sun, 29 Oct 2017 16:03:36 +0530
+Subject: [PATCH 2/2] added new test cases
+
+---
+ add_tests.patch | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 add_tests.patch
+
+diff --git a/add_tests.patch b/add_tests.patch
+new file mode 100644
+index 0000000..e69de29
+-- 
+1.9.1
+
