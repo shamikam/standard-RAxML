@@ -1,0 +1,16 @@
+#!/bin/sh -e
+
+pkg=raxml
+
+if [ "$TMPDIR" = "" ] ; then
+  TMPDIR=$(mktemp -d /tmp/${pkg}-test.XXXX)
+  trap "rm -rf $TMPDIR" 0 INT QUIT ABRT PIPE TERM
+fi
+
+cd $TMPDIR
+
+cp -a /usr/share/doc/${pkg}/test_data/* .
+gunzip -r *
+
+raxmlHPC -m GTRGAMMA -n TEST -s testData.txt ­-f A -t testTree.txt 
+raxmlHPC -m GTRCAT -z testTree2.txt -s testData2.txt -f r -n TEST2

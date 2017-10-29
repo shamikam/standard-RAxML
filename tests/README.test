@@ -1,0 +1,13 @@
+Notes on how this package can be tested.
+────────────────────────────────────────
+
+This package can be tested by executing
+
+    sh run-unit-test
+
+in order to confirm its integrity.
+
+Test data obtained from 
+
+1. RAxML manual- https://sco.h-its.org/exelixis/resource/download/NewManual.pdf
+2. PHYLIP documentation- http://evolution.genetics.washington.edu/phylip.html
